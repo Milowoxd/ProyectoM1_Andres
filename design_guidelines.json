@@ -1,0 +1,93 @@
+{
+  "project_name": "Colorfly Studio Palette Generator",
+  "theme": "LIGHT",
+  "archetype": "Swiss & High-Contrast mixed with Editorial Organic",
+  "global_rules": {
+    "language": "Spanish",
+    "approach": "Desktop-first, highly functional, premium editorial tool",
+    "texture": "Apply a subtle CSS noise/grain overlay across the entire app to remove digital flatness."
+  },
+  "colors": {
+    "background": "#F4F3EE",
+    "text_primary": "#121212",
+    "text_secondary": "#595959",
+    "border": "#E5E3DB",
+    "ui_bg": "#121212",
+    "ui_text": "#F4F3EE",
+    "hover_state": "#333333"
+  },
+  "typography": {
+    "heading": "Bodoni Moda",
+    "technical": "IBM Plex Mono",
+    "body": "Outfit",
+    "import_url": "@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Outfit:wght@300;400;500&display=swap');",
+    "usage": {
+      "brand": "font-serif text-5xl md:text-6xl tracking-tight text-text_primary",
+      "hex_codes": "font-mono text-xl tracking-widest uppercase",
+      "ui_labels": "font-sans text-xs tracking-[0.2em] uppercase",
+      "body_text": "font-sans text-base leading-relaxed"
+    }
+  },
+  "spacing": {
+    "global_padding": "p-8 lg:p-12",
+    "gap": "gap-8",
+    "element_padding": "px-6 py-4"
+  },
+  "layout": {
+    "structure": "100vh layout without standard vertical scroll. Fixed header, dynamic main area.",
+    "main_grid": "Flex container with horizontal flex-row. Each color card is flex-1. Smooth transition on flex-basis/width when size changes."
+  },
+  "components": {
+    "hero_header": {
+      "layout": "Asymmetric flex-row. Left: 'Colorfly Studio' (Bodoni Moda). Right: Controls bar.",
+      "style": "Border-b border-border pb-6 mb-6",
+      "data_testid": "hero-header"
+    },
+    "controls_bar": {
+      "description": "Contains size selector, format toggle, save palette button, and generate button. Grouped tightly.",
+      "size_selector": "Segmented control (6, 8, 9). Sharp edges. Active state: bg-[#121212] text-[#F4F3EE]. data-testid='size-selector-{value}'",
+      "format_toggle": "Toggle between HSL / HEX. Monospace font. data-testid='format-toggle'",
+      "generate_button": "Prominent CTA. Solid black bg, white text. px-8 py-4. font-sans uppercase text-xs tracking-widest. data-testid='generate-palette-button'"
+    },
+    "color_cards_grid": {
+      "layout": "Flex container taking remaining vertical space. Cards sit side-by-side filling width.",
+      "card_style": "flex flex-col relative group transition-all duration-500 ease-in-out border-r border-border last:border-r-0. data-testid='color-card'",
+      "card_content": "Top/Center area filled with the color. Bottom area (bg-background p-6) shows the Hex/HSL code in IBM Plex Mono. Tool actions (lock, copy) appear on hover in the colored area.",
+      "lock_button": "Icon button (Lucide Lock/Unlock). Toggles state. data-testid='lock-color-button-{index}'",
+      "copy_interaction": "Click anywhere on the colored area to copy. Show 'COPIAR' label on hover. data-testid='copy-color-button-{index}'"
+    },
+    "saved_palettes_drawer": {
+      "layout": "Fixed right-side panel, w-96. Slides in (Framer Motion).",
+      "trigger": "Button in header 'PALETAS GUARDADAS'. data-testid='open-saved-palettes'",
+      "content": "List of mini-palette rows. Each row shows color swatches side-by-side and a 'Restore' button.",
+      "data_testid": "saved-palettes-drawer"
+    },
+    "toast_notifications": {
+      "style": "Minimalist rectangular box. bg-[#121212] text-[#F4F3EE]. font-mono text-sm. Bottom center or right.",
+      "data_testid": "toast-notification"
+    },
+    "footer": {
+      "content": "Minimal text 'Colorfly Studio © 2026' left-aligned. 'Presiona Espacio para regenerar' right-aligned.",
+      "style": "pt-6 mt-6 border-t border-border flex justify-between font-sans text-xs tracking-widest uppercase text-text_secondary"
+    }
+  },
+  "interactions_and_animations": {
+    "generation": "Staggered reveal of colors. Use framer-motion layout animations so when size changes, columns grow/shrink smoothly.",
+    "hover_states": "Color cards should dim slightly or show an overlay gradient when hovered to make lock/copy buttons legible if the generated color is too bright or dark. Use CSS mix-blend-mode or dynamic contrast.",
+    "keyboard": "Listen to 'keydown' for 'Space' key. Prevent default scrolling. Trigger regeneration. (Don't trigger if typing in an input, though there are no text inputs here)."
+  },
+  "testing": {
+    "attributes": "Ensure all data-testid attributes are implemented as specified in the component definitions."
+  },
+  "instructions_to_main_agent": [
+    "Install framer-motion, lucide-react, sonner (for toasts).",
+    "Apply fonts globally in index.css.",
+    "Create a noise overlay using a pseudo-element or SVG filter over the body to give a tactile, magazine feel.",
+    "Logic: Store an array of color objects { id, hex, hsl, locked } in React state.",
+    "Use a color library or write a small utility to convert between RGB/HEX/HSL. HSL is great for random generation (e.g. random Hue, random saturation 30-90%, random lightness 20-80%).",
+    "Persist saved palettes to localStorage.",
+    "Ensure the UI uses sharp corners (rounded-none) rather than soft borders to maintain the editorial/brutalist look.",
+    "All text must be in Spanish."
+  ],
+  "image_urls": {}
+}
