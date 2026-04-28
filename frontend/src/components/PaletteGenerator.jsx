@@ -26,18 +26,15 @@ const PaletteGenerator = () => {
   const [size, setSize] = useState(6);
   const [format, setFormat] = useState("HEX");
   const [colors, setColors] = useState(() => generatePalette(6));
-  const [saved, setSaved] = useState([]);
-  const [drawerOpen, setDrawerOpen] = useState(false);
-
-  // Load saved palettes from localStorage
-  useEffect(() => {
+  const [saved, setSaved] = useState(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) setSaved(JSON.parse(raw));
+      return raw ? JSON.parse(raw) : [];
     } catch {
-      /* ignore corrupt storage */
+      return [];
     }
-  }, []);
+  });
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   // Persist saved palettes
   useEffect(() => {

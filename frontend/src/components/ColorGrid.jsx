@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Lock, Unlock, Copy } from "lucide-react";
 import { readableTextOn, hslString } from "../lib/colorUtils";
 
@@ -8,13 +8,12 @@ const ColorCard = ({ color, index, format, onToggleLock, onCopy }) => {
 
   return (
     <motion.div
-      layout
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -12 }}
+      exit={{ opacity: 0 }}
       transition={{
-        duration: 0.45,
-        delay: index * 0.05,
+        duration: 0.25,
+        delay: index * 0.025,
         ease: [0.22, 1, 0.36, 1],
       }}
       className="relative flex-1 flex flex-col border-r border-rule last:border-r-0 group focus-within:z-10"
@@ -82,18 +81,16 @@ const ColorGrid = ({ colors, format, onToggleLock, onCopy }) => {
       aria-label="Paleta de colores generada"
       data-testid="color-grid"
     >
-      <AnimatePresence mode="popLayout">
-        {colors.map((c, i) => (
-          <ColorCard
-            key={c.id}
-            color={c}
-            index={i}
-            format={format}
-            onToggleLock={onToggleLock}
-            onCopy={onCopy}
-          />
-        ))}
-      </AnimatePresence>
+      {colors.map((c, i) => (
+        <ColorCard
+          key={c.id}
+          color={c}
+          index={i}
+          format={format}
+          onToggleLock={onToggleLock}
+          onCopy={onCopy}
+        />
+      ))}
     </div>
   );
 };
